@@ -71,7 +71,7 @@ context 'API' do
       ensure
         tmp_input.close!
       end
-    end
+    end unless RUBY_ENGINE == 'truffleruby' # can't modify frozen String in truffleruby-19.0.0/lib/mri/delegate.rb:349:in `encode!'
 
     test 'should not load invalid file' do
       sample_input_path = fixture_path('hello-asciidoctor.pdf')

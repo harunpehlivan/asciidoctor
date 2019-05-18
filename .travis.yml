@@ -10,14 +10,15 @@ rvm:
 - 2.3.8
 - jruby-9.2.7.0
 - jruby-9.1.17.0
-# the test suite currently crashes on truffleruby
-#- truffleruby-rc13
+- truffleruby-19.0.0
 env:
   global:
   # use system libraries to speed up installation of nokogiri
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
   - PYGMENTS=true
   - SOURCE_DATE_EPOCH=1521504000
+  # use 3g to avoid OutOfMemoryError when running the tests suite against TruffleRuby
+  - TRUFFLERUBYOPT="--vm.Xmx3g"
 script: bundle exec rake coverage test:all
 after_success: bundle exec rake build:dependents
 #notifications:
