@@ -10,7 +10,6 @@ rvm:
 - 2.3.8
 - jruby-9.2.7.0
 - jruby-9.1.17.0
-- truffleruby-19.0.0
 env:
   global:
   # use system libraries to speed up installation of nokogiri
@@ -19,6 +18,11 @@ env:
   - SOURCE_DATE_EPOCH=1521504000
   # use 3g to avoid OutOfMemoryError when running the tests suite against TruffleRuby
   - TRUFFLERUBYOPT="--vm.Xmx3g"
+matrix:
+  include:
+  - name: "TruffleRuby"
+    rvm: truffleruby-19.0.0
+    if: env(TRAVIS_EVENT_TYPE) = cron
 script: bundle exec rake coverage test:all
 after_success: bundle exec rake build:dependents
 #notifications:
