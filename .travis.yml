@@ -21,7 +21,7 @@ matrix:
   - rvm: truffleruby-19.0.0
     # give vm 3g to avoid OutOfMemoryError
     env: TRUFFLERUBYOPT=--vm.Xmx3g
-    if: env(TRAVIS_EVENT_TYPE) = cron
+    if: type = cron
 script: bundle exec rake coverage test:all
 after_success: bundle exec rake build:dependents
 #notifications:
